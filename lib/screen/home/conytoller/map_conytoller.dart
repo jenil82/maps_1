@@ -1,9 +1,19 @@
-import 'package:get/get.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class LocationController extends GetxController
-{
-  RxDouble lat = 0.0.obs;
+class Trackcontroller extends GetxController {
   RxDouble lan = 0.0.obs;
-  RxList<Placemark> add = <Placemark>[].obs;
+  RxDouble lat = 0.0.obs;
+
+  RxList<Placemark> plceList = <Placemark>[].obs;
+
+  Future<void> permission() async {
+    {
+      var Status = await Permission.location.status;
+      if (Status.isDenied) {
+        await Permission.location.request();
+      }
+    }
+  }
 }
