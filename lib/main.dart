@@ -8,8 +8,8 @@ void main() {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (p0) => maps_screen(),
-        'MapScreen': (p0) => home_screen(),
+        '/': (p0) => Track_Screen(),
+        'MapScreen': (p0) => Map_Screen(),
       },
     ),
   );

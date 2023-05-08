@@ -4,14 +4,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../conytoller/map_conytoller.dart';
 
-class home_screen extends StatefulWidget {
-  const home_screen({Key? key}) : super(key: key);
+class Map_Screen extends StatefulWidget {
+  const Map_Screen({Key? key}) : super(key: key);
 
   @override
-  State<home_screen> createState() => _home_screenState();
+  State<Map_Screen> createState() => _Map_ScreenState();
 }
 
-class _home_screenState extends State<home_screen> {
+class _Map_ScreenState extends State<Map_Screen> {
   Trackcontroller trackcontroller = Get.put(Trackcontroller());
 
   @override
@@ -39,7 +39,7 @@ class _home_screenState extends State<home_screen> {
               title: const Text(
                 "Google Map",
                 style:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
               ),
             ),
           ),
@@ -49,12 +49,13 @@ class _home_screenState extends State<home_screen> {
             GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(
-                    trackcontroller.lat.value, trackcontroller.lan.value),
+                  trackcontroller.lat.value,
+                  trackcontroller.lan.value,
+                ),
               ),
               markers: {
                 Marker(
                   draggable: true,
-
                   markerId: MarkerId("not Available"),
                   position: LatLng(
                       trackcontroller.lat.value, trackcontroller.lan.value),

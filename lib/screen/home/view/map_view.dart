@@ -6,30 +6,29 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../conytoller/map_conytoller.dart';
 
-class maps_screen extends StatefulWidget {
-  const maps_screen({Key? key}) : super(key: key);
+class Track_Screen extends StatefulWidget {
+  const Track_Screen({Key? key}) : super(key: key);
 
   @override
-  State<maps_screen> createState() => _maps_screenState();
+  State<Track_Screen> createState() => _Track_ScreenState();
 }
 
-class _maps_screenState extends State<maps_screen> {
-  Trackcontroller trac = Get.put(Trackcontroller());
+class _Track_ScreenState extends State<Track_Screen> {
+  Trackcontroller trackcontroller = Get.put(Trackcontroller());
 
   void initState() {
     // TODO: implement initState
     super.initState();
-    trac.permission();
+    trackcontroller.permission();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text(
-            "Live map",
+            "Live location",
             style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           centerTitle: true,
@@ -39,7 +38,6 @@ class _maps_screenState extends State<maps_screen> {
           child: Center(
             child: Column(
               children: [
-                SizedBox(height: 10,),
                 ElevatedButton(
                   onPressed: () async {
                     var Status = await Permission.location.status;
@@ -49,39 +47,36 @@ class _maps_screenState extends State<maps_screen> {
                   },
                   child: Text("Permision"),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 ElevatedButton(
                     onPressed: () async {
                       Position position = await Geolocator.getCurrentPosition(
                           desiredAccuracy: LocationAccuracy.high);
 
-                      trac.lat.value = position.latitude;
-                      trac.lan.value = position.longitude;
+                      trackcontroller.lat.value = position.latitude;
+                      trackcontroller.lan.value = position.longitude;
                     },
                     child: Text("locketed")),
                 Obx(
-                      () => Text("lat = ${trac.lat}"),
+                      () => Text("lat = ${trackcontroller.lat}"),
                 ),
                 Obx(
-                      () => Text("lan = ${trac.lan}"),
+                      () => Text("lan = ${trackcontroller.lan}"),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     List<Placemark> placemarks = await placemarkFromCoordinates(
-                      trac.lat.value,
-                      trac.lan.value,
+                      trackcontroller.lat.value,
+                      trackcontroller.lan.value,
                     );
-                    trac.plceList.value = placemarks;
+                    trackcontroller.plceList.value = placemarks;
                   },
                   child: Text("Adderss"),
                 ),
                 Obx(
                       () => Container(
-                    child: Text(trac.plceList.value.isEmpty
+                    child: Text(trackcontroller.plceList.value.isEmpty
                         ? " "
-                        : "${trac.plceList[0]}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                        : "${trackcontroller.plceList[0]}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   ),
                 ),
                 SizedBox(height: 40,),
@@ -89,7 +84,9 @@ class _maps_screenState extends State<maps_screen> {
                   onPressed: () {
                     Get.toNamed('MapScreen');
                   },
-                  label:  Icon(Icons.location_on_rounded),
+                  label: Text("loacation"),
+
+                  icon: Icon(Icons.location_on_rounded),
                 ),
               ],
             ),
